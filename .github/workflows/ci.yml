@@ -1,0 +1,32 @@
+name: CI/CD Sound-Compass
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+defaults:
+  run:
+    working-directory: ./sound-compass
+
+jobs:
+  build:
+      runs-on : self-hosted
+      steps:
+        - uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+
+        - name: Check rebase
+          run: bash ../check_ci.sh
+
+        - uses: actions/setup-node@v4
+          with:
+            node-version: '22'
+            cache: 'npm'
+            cache-dependency-path: sound-compass/package-lock.json
+        - name: Install dependencies
+          run: npm ci
+        - name: Build the application
+          run: npm run build
