@@ -1,2 +1,1 @@
-export interface Track {
-}
+export interface Track {}

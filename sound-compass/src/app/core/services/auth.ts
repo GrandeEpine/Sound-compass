@@ -1,8 +1,29 @@
 import { Injectable } from '@angular/core';
+import { SpotifyApi } from '@spotify/web-api-ts-sdk';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Auth {
-  
+  /**
+   * @private The redirect URI registered with Spotify for the application.
+   */
+  private static readonly REDIRECT_URI: string = 'http://localhost:4200/callback';
+
+  /**
+   * @private Scopes used for the authorization process.
+   */
+  private static readonly SCOPES: string[] = [
+    'playlist-modify-private',
+    'playlist-modify-public',
+    'user-read-email',
+    'user-read-private',
+  ];
+
+  readonly sdk: SpotifyApi = SpotifyApi.withUserAuthorization(
+    environment.spotifyClientId,
+    Auth.REDIRECT_URI,
+    Auth.SCOPES,
+  );
 }
