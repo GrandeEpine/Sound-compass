@@ -21,7 +21,7 @@ export class Auth {
     'user-read-private',
   ];
 
-  readonly sdk: SpotifyApi = SpotifyApi.withUserAuthorization(
+  public readonly SDK: SpotifyApi = SpotifyApi.withUserAuthorization(
     environment.spotifyClientId,
     Auth.REDIRECT_URI,
     Auth.SCOPES,

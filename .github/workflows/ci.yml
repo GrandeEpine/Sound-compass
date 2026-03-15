@@ -28,5 +28,9 @@ jobs:
             cache-dependency-path: sound-compass/package-lock.json
         - name: Install dependencies
           run: npm ci
+        - name: Check format
+          run: npx prettier --check .
+        - name: Check lint
+          run: ng lint
         - name: Build the application
           run: npm run build
