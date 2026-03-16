@@ -29,9 +29,9 @@ export class GenreServices {
    * @return {Tracks} the filtered tracks.
    */
   public async filterTracksByGenre(selectedGenres: string[], tracks: Tracks): Promise<Tracks> {
-    let filteredTracks: Track[] = [];
+    const filteredTracks: Track[] = [];
     for (const track of tracks.tracks) {
-      let genresOfTrack: string[] = await this.genresOfArtistById(track.artists[0].id);
+      const genresOfTrack: string[] = await this.genresOfArtistById(track.artists[0].id);
 
       if (genresOfTrack.some((genre: string): boolean => selectedGenres.includes(genre))) {
         filteredTracks.push(track);

@@ -1,5 +1,3 @@
-import { Auth } from '../services/auth/auth';
-
 export interface User {
   id: string;
   country: string;

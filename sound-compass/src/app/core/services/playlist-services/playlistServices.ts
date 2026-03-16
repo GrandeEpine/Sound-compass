@@ -41,7 +41,6 @@ export class PlaylistServices {
    * @return : Promise<Page<Playlist<TrackItem>>> a promise that resolves to a page of playlists of the user.
    */
   public async getPlaylistsForUser(id: string): Promise<Page<Playlist<TrackItem>>> {
-    const user: User = await this.userService.getProfile();
     return this.auth.SDK.playlists.getUsersPlaylists(id);
   }
 
