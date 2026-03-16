@@ -1,4 +1,4 @@
-import { Auth } from '../services/auth';
+import { Auth } from '../services/auth/auth';
 
 
 export interface User {

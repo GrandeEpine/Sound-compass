@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SpotifyApi } from '@spotify/web-api-ts-sdk';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +21,10 @@ export class Auth {
     'user-read-private',
   ];
 
+  /**
+   * The SDK used to make request to the API.
+   * @return {SpotifyApi} a SDK object to communicate with the Spotify API, initialized with user authorization.
+   */
   public readonly SDK: SpotifyApi = SpotifyApi.withUserAuthorization(
     environment.spotifyClientId,
     Auth.REDIRECT_URI,
