@@ -20,7 +20,8 @@ jobs:
 
         - name: Check rebase
           run: bash ../check_ci.sh
-
+          env:
+            COMMIT_SHA: ${{ github.sha }}
         - uses: actions/setup-node@v4
           with:
             node-version: '22'
@@ -28,5 +29,13 @@ jobs:
             cache-dependency-path: sound-compass/package-lock.json
         - name: Install dependencies
           run: npm ci
+        - name: Create environment file
+          run: bash ../environment_file.sh
+          env:
+            SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+        - name: Check format
+          run: npx prettier --check .
+        - name: Check lint
+          run: ng lint
         - name: Build the application
           run: npm run build
