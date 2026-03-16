@@ -1,6 +1,6 @@
-import {inject, Injectable} from '@angular/core';
-import {Artist, Track, Tracks} from '@spotify/web-api-ts-sdk';
-import {ArtistServices} from '../artist-services/artist-services';
+import { inject, Injectable } from '@angular/core';
+import { Artist, Track, Tracks } from '@spotify/web-api-ts-sdk';
+import { ArtistServices } from '../artist-services/artist-services';
 
 @Injectable({
   providedIn: 'root',
@@ -33,10 +33,10 @@ export class GenreServices {
     for (const track of tracks.tracks) {
       let genresOfTrack: string[] = await this.genresOfArtistById(track.artists[0].id);
 
-      if (genresOfTrack.some((genre: string):boolean => selectedGenres.includes(genre))) {
+      if (genresOfTrack.some((genre: string): boolean => selectedGenres.includes(genre))) {
         filteredTracks.push(track);
       }
     }
-    return {tracks: filteredTracks};
+    return { tracks: filteredTracks };
   }
 }

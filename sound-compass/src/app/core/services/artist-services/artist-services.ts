@@ -1,6 +1,6 @@
-import {inject, Injectable} from '@angular/core';
-import {Auth} from '../auth/auth';
-import {Artist} from "@spotify/web-api-ts-sdk";
+import { inject, Injectable } from '@angular/core';
+import { Auth } from '../auth/auth';
+import { Artist } from '@spotify/web-api-ts-sdk';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,7 @@ export class ArtistServices {
    * @param id {string} the id of the artist.
    * @return {Promise<Artist>} a promise that resolves to the artist with the given id.
    */
-  public async getArtistById(id: string):Promise<Artist> {
+  public async getArtistById(id: string): Promise<Artist> {
     return this.auth.SDK.artists.get(id);
   }
 }

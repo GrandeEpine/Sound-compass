@@ -1,7 +1,7 @@
-import {inject, Injectable} from '@angular/core';
-import {Auth} from '../auth/auth';
-import {Page, Playlist, PlaylistedTrack, Track, Tracks} from '@spotify/web-api-ts-sdk';
-import {PlaylistServices} from '../playlist-services/playlistServices';
+import { inject, Injectable } from '@angular/core';
+import { Auth } from '../auth/auth';
+import { Page, Playlist, PlaylistedTrack, Track, Tracks } from '@spotify/web-api-ts-sdk';
+import { PlaylistServices } from '../playlist-services/playlistServices';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,6 @@ export class TrackServices {
    * @return {Promise<void>} a promise that resolves when the tracks have been put in the playlist.
    */
   public async postTracksInPlaylist(tracks: Tracks, playlistId: string): Promise<void> {
-
     // We chunk the ids into arrays of 100 elements, because the Spotify API only allows to post 100 tracks at a time.
     const chunkedTrackUris: string[][] = this.chunkTracksUris(tracks);
 
@@ -41,8 +40,10 @@ export class TrackServices {
    */
   private chunkTracksUris(tracks: Tracks): string[][] {
     const trackIds: string[] = tracks.tracks.map((track: Track): string => track.uri);
-    const chunks: string[][] = Array.from({ length: Math.ceil(trackIds.length / 100) },
-      (_: unknown, i: number): string[] => trackIds.slice(i * 100, i * 100 + 100));
+    const chunks: string[][] = Array.from(
+      { length: Math.ceil(trackIds.length / 100) },
+      (_: unknown, i: number): string[] => trackIds.slice(i * 100, i * 100 + 100),
+    );
     return chunks;
   }
 
@@ -52,7 +53,8 @@ export class TrackServices {
    * @return {Promise<Track[]>} a promise that resolves to the tracks of the playlist.
    */
   public async getTracksFromPlaylist(playlistId: string): Promise<Track[]> {
-    const result: Page<PlaylistedTrack<Track>> = await this.auth.SDK.playlists.getPlaylistItems(playlistId);
-    return result.items.map(item => item.track as Track);
+    const result: Page<PlaylistedTrack<Track>> =
+      await this.auth.SDK.playlists.getPlaylistItems(playlistId);
+    return result.items.map((item) => item.track as Track);
   }
 }

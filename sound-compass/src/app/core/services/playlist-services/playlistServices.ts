@@ -1,13 +1,20 @@
-import {inject, Injectable} from '@angular/core';
-import {Auth} from '../auth/auth';
-import {AccessToken, Page, Playlist, SimplifiedPlaylist, Track, TrackItem} from '@spotify/web-api-ts-sdk';
-import {UserServices} from '../user-services/userServices';
-import {User} from '../../models/user';
+import { inject, Injectable } from '@angular/core';
+import { Auth } from '../auth/auth';
+import {
+  AccessToken,
+  Page,
+  Playlist,
+  SimplifiedPlaylist,
+  Track,
+  TrackItem,
+} from '@spotify/web-api-ts-sdk';
+import { UserServices } from '../user-services/userServices';
+import { User } from '../../models/user';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PlaylistServices{
+export class PlaylistServices {
   private userService: UserServices = inject(UserServices);
   private auth: Auth = inject(Auth);
 
@@ -44,7 +51,11 @@ export class PlaylistServices{
    * @param description
    * @param isPublic
    */
-  public async postNewPlaylist(name: string, description: string, isPublic: boolean): Promise<Playlist<TrackItem>> {
+  public async postNewPlaylist(
+    name: string,
+    description: string,
+    isPublic: boolean,
+  ): Promise<Playlist<TrackItem>> {
     const user: User = await this.userService.getProfile();
     return this.auth.SDK.playlists.createPlaylist(user.id, {
       name: name,
@@ -54,7 +65,7 @@ export class PlaylistServices{
   }
 
   public async deletePlaylist(id: string): Promise<void> {
-    const token:AccessToken | null = await this.auth.SDK.getAccessToken();
+    const token: AccessToken | null = await this.auth.SDK.getAccessToken();
     try {
       await fetch(`https://api.spotify.com/v1/playlists/${id}/followers`, {
         method: 'DELETE',

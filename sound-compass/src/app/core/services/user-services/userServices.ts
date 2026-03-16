@@ -1,9 +1,9 @@
-import {inject, Injectable} from '@angular/core';
-import {Auth} from '../auth/auth';
-import {User} from '../../models/user';
+import { inject, Injectable } from '@angular/core';
+import { Auth } from '../auth/auth';
+import { User } from '../../models/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserServices {
   private auth: Auth = inject(Auth);
@@ -20,9 +20,8 @@ export class UserServices {
    */
   public async getProfile(): Promise<User> {
     if (!this.profile) {
-      this.profile = this.auth.SDK.currentUser
-        .profile()
-        .then((profile): User => ({
+      this.profile = this.auth.SDK.currentUser.profile().then(
+        (profile): User => ({
           id: profile.id,
           country: profile.country,
           name: profile.display_name,
@@ -31,7 +30,8 @@ export class UserServices {
           product: profile.product as 'free' | 'premium' | 'open',
           images: profile.images,
           uri: profile.uri,
-        }));
+        }),
+      );
     }
     return this.profile;
   }

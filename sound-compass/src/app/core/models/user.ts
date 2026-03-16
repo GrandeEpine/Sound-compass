@@ -1,13 +1,12 @@
 import { Auth } from '../services/auth/auth';
 
-
 export interface User {
   id: string;
   country: string;
   name: string;
   email: string;
   followersCount: number;
-  product: "free" | "premium" | "open";
+  product: 'free' | 'premium' | 'open';
   images: SpotifyImage[];
   uri: string;
 }
