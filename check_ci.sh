@@ -1,7 +1,7 @@
 check_rebase()
 {
     hash_main=$(git show-ref -s origin/main)
-    hash_common=$(git merge-base origin/main $COMMIT_SHA)
+    hash_common=$(git merge-base origin/main HEAD)
 
     if [ "${hash_main}" = "${hash_common}" ]
     then

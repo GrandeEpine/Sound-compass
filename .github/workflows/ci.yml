@@ -19,7 +19,7 @@ jobs:
             fetch-depth: 0
 
         - name: Check rebase
-          run: bash ../../check_ci.sh
+          run: bash ../check_ci.sh
           env:
             COMMIT_SHA: ${{ github.sha }}
 
