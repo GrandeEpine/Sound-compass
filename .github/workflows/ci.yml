@@ -30,7 +30,7 @@ jobs:
         - name: Install dependencies
           run: npm ci
         - name: Create environment file
-          run: bash ../environement_file.sh
+          run: bash ../environment_file.sh
           env:
             SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
         - name: Check format
