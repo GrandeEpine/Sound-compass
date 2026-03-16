@@ -20,6 +20,8 @@ jobs:
 
         - name: Check rebase
           run: bash ../check_ci.sh
+          env:
+            COMMIT_SHA: ${{ github.sha }}
 
         - uses: actions/setup-node@v4
           with:
