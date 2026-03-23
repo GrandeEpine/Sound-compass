@@ -1,6 +1,7 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Auth } from '../auth/auth';
 import { User } from '../../models/user';
+import { UserProfile } from '@spotify/web-api-ts-sdk';
 
 @Injectable({
   providedIn: 'root',
@@ -8,31 +9,27 @@ import { User } from '../../models/user';
 export class UserServices {
   private auth: Auth = inject(Auth);
 
-  /**
-   * The profile of the connected user. It is a promise that resolves to the user's profile.
-   * @private
-   */
-  private profile?: Promise<User>;
+  userProfile = signal<User | null>(null);
 
   /**
-   * Get the profile of the connected user
-   * @return {Promise<User>} the profile of the connected user.
+   * Load the profile of the connected user
+   * @return {Promise<undefined>} the profile of the connected user.
    */
-  public async getProfile(): Promise<User> {
-    if (!this.profile) {
-      this.profile = this.auth.SDK.currentUser.profile().then(
-        (profile): User => ({
-          id: profile.id,
-          country: profile.country,
-          name: profile.display_name,
-          email: profile.email ?? '',
-          followersCount: profile.followers.total,
-          product: profile.product as 'free' | 'premium' | 'open',
-          images: profile.images,
-          uri: profile.uri,
-        }),
-      );
+  public async loadProfile(): Promise<User | null> {
+    if (!this.userProfile()) {
+      const profile: UserProfile = await this.auth.SDK.currentUser.profile();
+      this.userProfile.set({
+        id: profile.id,
+        country: profile.country,
+        name: profile.display_name,
+        email: profile.email ?? '',
+        followersCount: profile.followers.total,
+        product: profile.product as 'free' | 'premium' | 'open',
+        images: profile.images,
+        uri: profile.uri,
+      });
+      return this.userProfile();
     }
-    return this.profile;
+    return null;
   }
 }

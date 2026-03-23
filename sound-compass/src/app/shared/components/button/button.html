@@ -1,0 +1,10 @@
+@if (!this.userServices.userProfile()) {
+  <h2>Connected</h2>
+} @else {
+  <button
+    (click)="login()"
+    class="bg-green-500 hover:bg-green-600 font-bold py-3 px-8 rounded-full"
+  >
+    Login
+  </button>
+}

@@ -54,8 +54,11 @@ export class PlaylistServices {
     name: string,
     description: string,
     isPublic: boolean,
-  ): Promise<Playlist<TrackItem>> {
-    const user: User = await this.userService.getProfile();
+  ): Promise<Playlist> {
+    const user: User | null = await this.userService.loadProfile();
+    if (!user) {
+      return Promise.reject(new Error('User not found'));
+    }
     return this.auth.SDK.playlists.createPlaylist(user.id, {
       name: name,
       description: description,

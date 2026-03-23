@@ -9,7 +9,7 @@ export class Auth {
   /**
    * @private The redirect URI registered with Spotify for the application.
    */
-  private static readonly REDIRECT_URI: string = 'http://localhost:4200/callback';
+  private static readonly REDIRECT_URI: string = 'http://127.0.0.1:4200/callback';
 
   /**
    * @private Scopes used for the authorization process.
@@ -30,4 +30,9 @@ export class Auth {
     Auth.REDIRECT_URI,
     Auth.SCOPES,
   );
+
+  async authenticate(): Promise<boolean> {
+    const response = await this.SDK.authenticate();
+    return response.authenticated;
+  }
 }

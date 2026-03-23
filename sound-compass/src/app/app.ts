@@ -9,7 +9,7 @@ import { Footer } from './layout/footer/footer';
   imports: [Home, Header, Footer],
   template: `
     <app-header />
-    <main>
+    <main class="flex justify-center flex-row w-full ">
       <section class="content">
         <app-home />
       </section>
