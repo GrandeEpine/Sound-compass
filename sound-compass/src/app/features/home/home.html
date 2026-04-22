@@ -15,18 +15,13 @@
         @if (!this.userServices.userProfile()) {
           <h1 class="">Welcome to Sound Compass</h1>
           <h2>Login with your Spotify account to start</h2>
+          <app-login-button></app-login-button>
         } @else {
           <h2>Welcome back, {{ this.userServices.userProfile()?.name }}!</h2>
-        }
-
-        <app-login></app-login>
-      </div>
-      <div>
-        @if (this.userServices.userProfile()) {
-          <h2>{{ this.userServices.userProfile()?.name }}</h2>
           <p>Email: {{ this.userServices.userProfile()?.email }}</p>
           <p>Country: {{ this.userServices.userProfile()?.country }}</p>
           <p>Followers: {{ this.userServices.userProfile()?.followersCount }}</p>
+          <app-logout-button></app-logout-button>
         }
       </div>
     </div>

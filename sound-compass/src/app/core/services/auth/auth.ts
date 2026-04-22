@@ -35,4 +35,12 @@ export class Auth {
     const response = await this.SDK.authenticate();
     return response.authenticated;
   }
+
+  /**
+   * Clear the cached token to force re-authentication
+   */
+  logout(): void {
+    localStorage.removeItem('spotify-sdk:AuthorizationCodeWithPKCEStrategy:token');
+    sessionStorage.removeItem('spotify-sdk:AuthorizationCodeWithPKCEStrategy:token');
+  }
 }
