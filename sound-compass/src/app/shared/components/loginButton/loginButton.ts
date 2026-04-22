@@ -3,12 +3,12 @@ import { Auth } from '../../../core/services/auth/auth';
 import { UserServices } from '../../../core/services/user-services/userServices';
 
 @Component({
-  selector: 'app-button',
+  selector: 'app-loginbutton',
   imports: [],
-  templateUrl: './button.html',
-  styleUrl: './button.css',
+  templateUrl: './loginButton.html',
+  styleUrl: './loginButton.css',
 })
-export class Button {
+export class LoginButton {
   private auth = inject(Auth);
   protected userServices = inject(UserServices);
 
