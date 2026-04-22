@@ -9,7 +9,7 @@ import { UserServices } from '../../../core/services/user-services/userServices'
   styleUrl: './loginButton.css',
 })
 export class LoginButton {
-  private auth = inject(Auth);
+  protected auth = inject(Auth);
   protected userServices = inject(UserServices);
 
   async login(): Promise<void> {

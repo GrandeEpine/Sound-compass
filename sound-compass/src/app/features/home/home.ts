@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Login } from '../login/login';
+import {UserServices} from '../../core/services/user-services/userServices';
 
 @Component({
   selector: 'app-home',
@@ -7,4 +8,6 @@ import { Login } from '../login/login';
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home {}
+export class Home {
+  protected userServices = inject(UserServices);
+}
