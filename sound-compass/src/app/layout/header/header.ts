@@ -11,5 +11,4 @@ import { LogoutButton } from '../../shared/components/logout-button/logout-butto
 })
 export class Header {
   protected userServices = inject(UserServices);
-  protected readonly console = console;
 }

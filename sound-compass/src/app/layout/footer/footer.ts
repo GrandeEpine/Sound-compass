@@ -1,9 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { UserServices } from '../../core/services/user-services/userServices';
+import { LogoutButton } from '../../shared/components/logout-button/logout-button';
+import { LoginButton } from '../../shared/components/loginButton/loginButton';
 
 @Component({
   selector: 'app-footer',
-  imports: [],
+  imports: [LogoutButton, LoginButton],
   templateUrl: './footer.html',
   styleUrl: './footer.css',
 })
-export class Footer {}
+export class Footer {
+  protected userServices = inject(UserServices);
+  protected currentYear: number = new Date().getFullYear();
+}

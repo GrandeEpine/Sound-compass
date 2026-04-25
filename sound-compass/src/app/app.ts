@@ -8,13 +8,15 @@ import { Footer } from './layout/footer/footer';
   standalone: true,
   imports: [Home, Header, Footer],
   template: `
-    <app-header />
-    <main class="flex justify-center flex-row w-full ">
-      <section class="content">
-        <app-home />
-      </section>
-    </main>
-    <app-footer />
+    <div class="flex flex-col min-h-screen">
+      <app-header />
+      <main class="flex justify-center flex-row w-full flex-1 ">
+        <section>
+          <app-home />
+        </section>
+      </main>
+      <app-footer />
+    </div>
   `,
   styleUrl: './features/home/home.css',
 })
