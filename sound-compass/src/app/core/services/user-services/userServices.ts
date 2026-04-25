@@ -16,20 +16,18 @@ export class UserServices {
    * @return {Promise<undefined>} the profile of the connected user.
    */
   public async loadProfile(): Promise<User | null> {
-    if (!this.userProfile()) {
-      const profile: UserProfile = await this.auth.SDK.currentUser.profile();
-      this.userProfile.set({
-        id: profile.id,
-        country: profile.country,
-        name: profile.display_name,
-        email: profile.email ?? '',
-        followersCount: profile.followers.total,
-        product: profile.product as 'free' | 'premium' | 'open',
-        images: profile.images,
-        uri: profile.uri,
-      });
-      return this.userProfile();
-    }
-    return null;
+    const profile: UserProfile = await this.auth.SDK.currentUser.profile();
+    console.log('raw images:', profile.images);
+    this.userProfile.set({
+      id: profile.id,
+      country: profile.country,
+      name: profile.display_name,
+      email: profile.email ?? '',
+      followersCount: profile.followers.total,
+      product: profile.product as 'free' | 'premium' | 'open',
+      images: profile.images ?? [],
+      uri: profile.uri,
+    });
+    return this.userProfile();
   }
 }
