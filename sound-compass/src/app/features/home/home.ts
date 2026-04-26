@@ -1,9 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import {UserServices} from '../../core/services/user-services/userServices';
+import { UserServices } from '../../core/services/user-services/userServices';
+import { HomeAuthenticated } from './home-authenticated/home-authenticated';
+import { HomeGuest } from './home-guest/home-guest';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [HomeAuthenticated, HomeGuest],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

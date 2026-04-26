@@ -1,24 +1,19 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Sound Compass Home</title>
-  </head>
-  <body class="w-full">
-    <div class="w-max h-full backdrop-grayscale-0">
-      <div>
-        @if (!this.userServices.userProfile()) {
-          <h1 class="">Welcome to Sound Compass</h1>
-          <h2>Login with your Spotify account to start</h2>
-        } @else {
-          <h2>Welcome back, {{ this.userServices.userProfile()?.name }} !</h2>
-        }
+<div class="w-full">
+  @if (userServices.isLoading()) {
+    <!-- Loading view  -->
+    <div class="w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-white">
+      <div class="flex flex-col items-center gap-6">
+        <img src="loadingGif.gif" alt="Loading..." class="w-32 h-32" />
+        <h2 class="text-3xl font-semibold text-blue-600 text-center">
+          Please wait...
+        </h2>
       </div>
     </div>
-  </body>
-</html>
+  } @else if (!this.userServices.userProfile()) {
+      <!-- Guest view  -->
+      <app-home-guest></app-home-guest>
+  } @else {
+    <!-- User view  -->
+    <app-home-authenticated></app-home-authenticated>
+  }
+</div>

@@ -11,11 +11,13 @@ export class UserServices {
 
   userProfile = signal<User | null>(null);
 
+  isLoading = signal<boolean>(true);
   /**
    * Load the profile of the connected user
    * @return {Promise<undefined>} the profile of the connected user.
    */
   public async loadProfile(): Promise<User | null> {
+    this.isLoading.set(true);
     const profile: UserProfile = await this.auth.SDK.currentUser.profile();
     console.log('raw images:', profile.images);
     this.userProfile.set({
@@ -28,6 +30,7 @@ export class UserServices {
       images: profile.images ?? [],
       uri: profile.uri,
     });
+    this.isLoading.set(false);
     return this.userProfile();
   }
 }

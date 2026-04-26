@@ -8,10 +8,10 @@ import { Footer } from './layout/footer/footer';
   standalone: true,
   imports: [Home, Header, Footer],
   template: `
-    <div class="flex flex-col min-h-screen">
+    <div class="flex flex-col min-h-screen w-full">
       <app-header />
       <main class="flex justify-center flex-row w-full flex-1 ">
-        <section>
+        <section class="w-full">
           <app-home />
         </section>
       </main>
