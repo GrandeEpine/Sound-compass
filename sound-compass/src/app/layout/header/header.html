@@ -1,6 +1,6 @@
 <header class="w-full bg-blue-500 text-white">
   <nav class="flex items-center w-full px-6 py-3">
-    <a href="#" class="mr-12">
+    <a href="" class="mr-12">
       <img src="logo.png" alt="Sound compass logo" class="h-20 w-auto">
     </a>
     <ul class="flex gap-6">
@@ -15,11 +15,14 @@
           <span class="text-2xl">
             {{ this.userServices.userProfile()?.name }}
           </span>
-          <img
-            [src]="this.userServices.userProfile()?.images?.[0]?.url || 'default-avatar.png'"
-            alt="User Avatar"
-            class="h-1/6 w-1/6 rounded-full object-cover"
-          />
+          <a href="{{ this.userServices.userProfile()?.uri }}"
+             class="h-1/6 w-1/6">
+            <img
+              [src]="this.userServices.userProfile()?.images?.[0]?.url || 'default-avatar.png'"
+              alt="User Avatar"
+              class="rounded-full object-cover"
+            />
+          </a>
           <app-logout-button></app-logout-button>
       }
     </div>

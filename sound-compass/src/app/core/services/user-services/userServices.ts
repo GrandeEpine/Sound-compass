@@ -19,7 +19,6 @@ export class UserServices {
   public async loadProfile(): Promise<User | null> {
     this.isLoading.set(true);
     const profile: UserProfile = await this.auth.SDK.currentUser.profile();
-    console.log('raw images:', profile.images);
     this.userProfile.set({
       id: profile.id,
       country: profile.country,

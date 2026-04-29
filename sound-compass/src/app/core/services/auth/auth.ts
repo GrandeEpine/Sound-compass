@@ -17,8 +17,10 @@ export class Auth {
   private static readonly SCOPES: string[] = [
     'playlist-modify-private',
     'playlist-modify-public',
-    'user-read-email',
+    'playlist-read-private',
+    'playlist-read-collaborative',
     'user-read-private',
+    'user-read-email',
   ];
 
   /**

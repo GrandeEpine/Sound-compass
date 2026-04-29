@@ -31,8 +31,29 @@ export class PlaylistServices {
    * Get playlists of the current connected user.
    * @return : Promise<Page<SimplifiedPlaylist>> a promise that resolves to a page of playlists of the current user.
    */
-  public getConnectedUserPlaylist(): Promise<Page<SimplifiedPlaylist>> {
+  public getConnectedUserPlaylists(): Promise<Page<SimplifiedPlaylist>> {
+    console.log("Getting connected user playlists...");
     return this.auth.SDK.currentUser.playlists.playlists();
+  }
+
+  /**
+   * Get the n first playlist of the current connected user.
+   * @param n {number} the number of playlist desired.
+   * @return Promise<SimplifiedPlaylist[]> of the n first playlists.
+   */
+  public async getNFirstPlaylists(n: number): Promise<SimplifiedPlaylist[]> {
+    try {
+      console.log("Fetching", n, "playlists...");
+      const playlists: Page<SimplifiedPlaylist> = await this.getConnectedUserPlaylists();
+      console.log("API returned:", playlists);
+      console.log("Number of playlists:", playlists.items.length);
+      const result = playlists.items.slice(0, n);
+      console.log("Returning", result.length, "playlists:", result);
+      return result;
+    } catch (error) {
+      console.error("Error fetching playlists:", error);
+      throw error;
+    }
   }
 
   /**
