@@ -1,18 +1,18 @@
 import { Component, signal } from '@angular/core';
-import { Home } from './features/home/home';
 import { Header } from './layout/header/header';
 import { Footer } from './layout/footer/footer';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [Home, Header, Footer],
+  imports: [Header, Footer, RouterOutlet],
   template: `
     <div class="flex flex-col min-h-screen w-full">
       <app-header />
       <main class="flex justify-center flex-row w-full flex-1 ">
         <section class="w-full">
-          <app-home />
+          <router-outlet />
         </section>
       </main>
       <app-footer />

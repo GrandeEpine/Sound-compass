@@ -1,11 +1,8 @@
-<div class="w-full h-2/3 flex items-center justify-center m-10">
+<div class="w-full h-2/3 flex items-center justify-center m-2">
   @if (this.isLoading()) {
     <app-loading />
   } @else if (playlists().length !== 0) {
-    <div class="m-10">
-      <a href="" class="m-1">
-        <h3 class="underline hover:text-blue-500">See more ...</h3>
-      </a>
+    <div class="m-2">
       <div class="w-full flex justify-center">
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
           @for (playlist of playlists(); track playlist.id) {

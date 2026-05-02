@@ -1,8 +1,9 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { PlaylistCard } from '../cards/playlist-card/playlist-card';
+import { Loading } from '../loading/loading';
+import { ActivatedRoute } from '@angular/router';
 import { PlaylistServices } from '../../../core/services/playlist-services/playlistServices';
 import { SimplifiedPlaylist } from '@spotify/web-api-ts-sdk';
-import { Loading } from '../loading/loading';
 
 
 @Component({
@@ -12,20 +13,31 @@ import { Loading } from '../loading/loading';
   styleUrl: './playlist-list.css',
 })
 export class PlaylistList implements OnInit {
-  protected playlistService = inject(PlaylistServices);
+  private playlistService = inject(PlaylistServices);
+  private route = inject(ActivatedRoute);
 
-  public playlists = signal<SimplifiedPlaylist[]>([]);
+  n = input<number>(0); // 0 = affiche tout
   public isLoading = signal<boolean>(true);
+  public playlists = signal<SimplifiedPlaylist[]>([]);
+  public currentN = 3;
 
-  n = input.required<number>();
+   async ngOnInit() {
+     const inputN = this.n();
+     const routeN = Number(this.route.snapshot.queryParamMap.get('n'));
+     console.log(routeN);
+     if ( isNaN(Number(routeN)) || Number(routeN) < 1) {
+       if (inputN > 0 && ! isNaN(inputN)) {
+         this.currentN = inputN;
+       } else {
+         this.currentN = 3;
+       }
+     } else {
+        this.currentN = routeN;
+     }
 
-  async ngOnInit(): Promise<void> {
-    if (this.n() < 1) {
-      alert('The number of playlists to display must be at least 1.');
-      return;
-    }
-    this.isLoading.set(true);
-    this.playlists.set(await this.playlistService.getNFirstPlaylists(this.n()));
-    this.isLoading.set(false);
-  }
+     this.isLoading.set(true);
+     this.playlists.set(await this.playlistService.getNFirstPlaylists(this.currentN));
+     this.isLoading.set(false);
+
+   }
 }
