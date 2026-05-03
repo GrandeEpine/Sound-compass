@@ -1,0 +1,22 @@
+<div class="w-full max-w-6xl mx-auto px-4 md:px-8 py-12">
+  <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-12">Create a new playlist - Step {{ this.currentStep() }}</h1>
+  @switch (currentStep()) {
+    @case (1) {
+      <p>https://open.spotify.com/playlist/0ZXDeg1JKWm2oqB857oz0V?si=b2c10d97244e4611</p>
+      <h2 class="mb-5 mt-5">Step 1: Enter the link of the playlist.</h2>
+      <app-playlist-choice (next)="confirm($event)" />
+    }
+    @case (2) {
+      <h2>Step 2: Selected the desired genres.</h2>
+      step 2
+    }
+    @case (3) {
+      <h2>Step 3: Customize your new playlist</h2>
+      step 3
+    }
+    @case (4) {
+      <h2>Step 4: Your new playlist is ready !</h2>
+      step 4
+    }
+  }
+</div>

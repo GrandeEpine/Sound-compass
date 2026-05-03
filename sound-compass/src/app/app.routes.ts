@@ -4,6 +4,7 @@ import { Callback } from './features/callback/callback';
 import { Playlists } from './features/playlists/playlists';
 import { UserRole } from './core/models/user-role';
 import { authGuard } from './core/guards/auth-guard';
+import { PlaylistCreator } from './features/playlist-creator/playlist-creator';
 
 export const routes: Routes = [
   { path: 'callback', component: Callback },
@@ -15,4 +16,10 @@ export const routes: Routes = [
     canActivate: [authGuard],
     data: { expectedRole: UserRole.USER },
   },
+  {
+    path: 'create-playlist',
+    component: PlaylistCreator,
+    canActivate: [authGuard],
+    data: { expectedRole: UserRole.USER },
+  }
 ];

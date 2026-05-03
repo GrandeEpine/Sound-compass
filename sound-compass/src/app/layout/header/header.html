@@ -5,8 +5,8 @@
     </a>
     <ul class="flex gap-6">
       <li><a href="/" class="nav-link">Home</a></li>
-      <li><a href="/about" class="nav-link">About</a></li>
-      <li><a href="/contact" class="nav-link">Contact</a></li>
+      <li><a [routerLink]="['/my-playlists']" [queryParams]="{ n: 4 }" class="nav-link">My playlists</a></li>
+      <li><a [routerLink]="['/create-playlist']" class="nav-link">Create</a></li>
     </ul>
     <div class="ml-auto flex items-center gap-4 justify-end">
       @if (!this.userServices.userProfile()) {
