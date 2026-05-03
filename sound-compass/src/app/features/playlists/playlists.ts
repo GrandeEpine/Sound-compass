@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { PlaylistList } from '../../shared/components/playlist-list/playlist-list';
-import { ActivatedRoute } from '@angular/router';
+import {QueryParametersService} from "../../core/services/queryParametersService/query-parameters-service";
 
 @Component({
   selector: 'app-playlists',
@@ -9,11 +9,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './playlists.css',
 })
 export class Playlists {
-  private route = inject(ActivatedRoute);
+  private queryParametersService = inject(QueryParametersService);
   public currentN = 3;
 
   ngOnInit() {
-    const routeN = Number(this.route.snapshot.queryParamMap.get('n'));
+    const routeN = Number(this.queryParametersService.get('n'));
     if ( ! isNaN(Number(routeN)) && Number(routeN) > 1) {
       this.currentN = Number(routeN);
     }

@@ -1,9 +1,9 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { PlaylistCard } from '../cards/playlist-card/playlist-card';
 import { Loading } from '../loading/loading';
-import { ActivatedRoute } from '@angular/router';
 import { PlaylistServices } from '../../../core/services/playlist-services/playlistServices';
 import { SimplifiedPlaylist } from '@spotify/web-api-ts-sdk';
+import {QueryParametersService} from '../../../core/services/queryParametersService/query-parameters-service';
 
 
 @Component({
@@ -14,7 +14,7 @@ import { SimplifiedPlaylist } from '@spotify/web-api-ts-sdk';
 })
 export class PlaylistList implements OnInit {
   private playlistService = inject(PlaylistServices);
-  private route = inject(ActivatedRoute);
+  private queryParametersService = inject(QueryParametersService);
 
   n = input<number>(0); // 0 = affiche tout
   public isLoading = signal<boolean>(true);
@@ -23,8 +23,7 @@ export class PlaylistList implements OnInit {
 
    async ngOnInit() {
      const inputN = this.n();
-     const routeN = Number(this.route.snapshot.queryParamMap.get('n'));
-     console.log(routeN);
+     const routeN = Number(this.queryParametersService.get('n'));
      if ( isNaN(Number(routeN)) || Number(routeN) < 1) {
        if (inputN > 0 && ! isNaN(inputN)) {
          this.currentN = inputN;

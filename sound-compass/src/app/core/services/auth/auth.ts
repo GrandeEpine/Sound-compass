@@ -35,15 +35,28 @@ export class Auth {
     Auth.SCOPES,
   );
 
+  /**
+   * Get the role of the current user.
+   * @return { string } the role of this user.
+   */
   public getUserRole(): string {
     return localStorage.getItem(LocalStorageVariables.USER_ROLE) ?? UserRole.GUEST;
   }
 
+  /**
+   * Set the role of the current user
+   * @param userRole {string} the new role of the user.
+   */
   public setUserRole(userRole: string): void {
     if (Object.values(UserRole).includes(userRole as UserRole)) {
       localStorage.setItem(LocalStorageVariables.USER_ROLE, userRole);
     }
   }
+
+  /**
+   * Authenticate the user using the spotify SDK. This will open a new window for the user to log in and authorize the application.
+   * @return {Promise<boolean>} a promise that resolves to true if the user is authenticated, false otherwise.
+   */
   async authenticate(): Promise<boolean> {
     const response = await this.SDK.authenticate();
     return response.authenticated;
