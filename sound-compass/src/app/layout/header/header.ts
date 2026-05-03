@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { UserServices } from '../../core/services/user-services/userServices';
-import { LoginButton } from '../../shared/components/loginButton/loginButton';
-import { LogoutButton } from '../../shared/components/logout-button/logout-button';
+import { LoginButton } from '../../shared/components/buttons/loginButton/loginButton';
+import { LogoutButton } from '../../shared/components/buttons/logout-button/logout-button';
 import { RouterLink } from '@angular/router';
 
 @Component({

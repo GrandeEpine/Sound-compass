@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { Auth } from '../../../core/services/auth/auth';
-import { UserServices } from '../../../core/services/user-services/userServices';
+import { Auth } from '../../../../core/services/auth/auth';
+import { UserServices } from '../../../../core/services/user-services/userServices';
 
 @Component({
   selector: 'app-login-button',

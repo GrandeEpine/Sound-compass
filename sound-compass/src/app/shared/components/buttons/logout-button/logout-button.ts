@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { UserServices } from '../../../core/services/user-services/userServices';
-import { Auth } from '../../../core/services/auth/auth';
-import { UserRole } from '../../../core/models/user-role';
+import { UserServices } from '../../../../core/services/user-services/userServices';
+import { Auth } from '../../../../core/services/auth/auth';
+import { UserRole } from '../../../../core/models/enums/user-role';
 import { Router } from '@angular/router';
 
 @Component({

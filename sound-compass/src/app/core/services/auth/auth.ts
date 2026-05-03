@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { SpotifyApi } from '@spotify/web-api-ts-sdk';
 import { environment } from '../../../../environments/environment.development';
-import {UserRole} from '../../models/user-role';
-import {LocalStorageVariables} from '../../models/local-storage-variables';
+import {UserRole} from '../../models/enums/user-role';
+import {LocalStorageVariables} from '../../models/enums/local-storage-variables';
 
 @Injectable({
   providedIn: 'root',

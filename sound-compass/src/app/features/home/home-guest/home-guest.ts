@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import {LoginButton} from "../../../shared/components/loginButton/loginButton";
+import {LoginButton} from "../../../shared/components/buttons/loginButton/loginButton";
 import { UserServices } from '../../../core/services/user-services/userServices';
 
 @Component({
