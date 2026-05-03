@@ -4,6 +4,7 @@ import { UserServices } from '../../core/services/user-services/userServices';
 import { Auth } from '../../core/services/auth/auth';
 import { UserRole } from '../../core/models/enums/user-role';
 import { QueryParametersService } from '../../core/services/query-parameters-service/query-parameters-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-callback',
@@ -15,19 +16,29 @@ export class Callback implements OnInit {
   private userServices = inject(UserServices);
   private auth = inject(Auth);
   private queryParams = inject(QueryParametersService);
+  private router = inject(Router);
 
   ngOnInit(): void {
     const code = this.queryParams.get('code');
     const error = this.queryParams.get('error');
-    const isOAuthCallback = !!code || !!error;
 
-    if (isOAuthCallback && !error) {
-      // Set user role to USER since they just authenticated
+    if (error) {
+      this.resetToGuest();
+      return;
+    }
+
+    if (code) {
       this.auth.setUserRole(UserRole.USER);
-
       this.userServices.loadProfile().catch(err => {
         console.error('Error loading profile:', err);
       });
     }
+  }
+
+  private resetToGuest(): void {
+    this.auth.setUserRole(UserRole.GUEST);
+    this.userServices.userProfile.set(null);
+    this.userServices.isLoading.set(false);
+    this.router.navigate(['/home']);
   }
 }

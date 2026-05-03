@@ -9,11 +9,12 @@
       <app-playlist-card [playlist]="playlist()!" />
     </div>
 
-    <button class="bg-blue-500 hover:bg-blue-600 disabled:opacity-40 disabled:cursor-not-allowed
-           text-white font-semibold py-2 px-6 rounded-lg transition-colors self-start mt-5 mb-5"
-            (click)="confirm()">Utiliser cette playlist →</button>
+    <app-validate-button
+      (action)="confirm()"
+      [disabled]="!playlist()"
+    />
   } @else {
-    <p class="text-gray-500">Aucune playlist trouvée.</p>
+    <p class="text-gray-500">No playlist found.</p>
   }
 </div>
 

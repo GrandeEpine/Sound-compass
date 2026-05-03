@@ -21,5 +21,5 @@ export const routes: Routes = [
     component: PlaylistCreator,
     canActivate: [authGuard],
     data: { expectedRole: UserRole.USER },
-  }
+  },
 ];

@@ -1,22 +1,26 @@
-import { Component, inject, signal } from '@angular/core';
-import { QueryParametersService } from '../../core/services/query-parameters-service/query-parameters-service';
+import { Component, signal } from '@angular/core';
 import { PlaylistChoice } from './playlist-choice/playlist-choice';
+import { PlaylistGenres } from './playlist-genres/playlist-genres';
+import { Genre } from '../../core/models/genre';
 
 @Component({
   selector: 'app-playlist-creator',
-  imports: [PlaylistChoice],
+  imports: [PlaylistChoice, PlaylistGenres],
   templateUrl: './playlist-creator.html',
   styleUrl: './playlist-creator.css',
 })
 export class PlaylistCreator {
-  private queryParametersService = inject(QueryParametersService);
   protected currentStep = signal<1 | 2 | 3 | 4>(1);
-  protected playlistId = signal<string | null>(null);
+  public playlistId = signal<string | null>(null);
+  protected selectedGenres = signal<Set<Genre>>(new Set());
 
-  onInputDone(playlistId: string) {
+  protected confirmStep1(playlistId: string): void {
     this.playlistId.set(playlistId);
     this.currentStep.set(2);
   }
 
-  protected readonly confirm = confirm;
+  protected confirmStep2(genres: Set<Genre>): void {
+    this.selectedGenres.set(genres);
+    this.currentStep.set(3);
+  }
 }

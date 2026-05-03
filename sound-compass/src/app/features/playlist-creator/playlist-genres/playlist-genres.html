@@ -1,0 +1,15 @@
+
+<ul>
+  @for (genre of genresList(); track genre.getName()) {
+    <app-genre-card
+      [genre]="genre"
+      [isSelected]="isGenreSelected(genre)"
+      (toggled)="toggleGenre($event)"
+    />
+  }
+</ul>
+
+<app-validate-button
+  (action)="confirm()"
+  [disabled]="selectedGenreNames().size === 0"
+/>

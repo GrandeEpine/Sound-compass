@@ -4,10 +4,11 @@ import { PlaylistCard } from '../../../shared/components/cards/playlist-card/pla
 import { PlaylistServices } from '../../../core/services/playlist-services/playlistServices';
 import { SimplifiedPlaylist } from '@spotify/web-api-ts-sdk';
 import { Loading } from '../../../shared/components/loading/loading';
+import { ValidateButton } from '../../../shared/components/buttons/validate-button/validate-button';
 
 @Component({
   selector: 'app-playlist-choice',
-  imports: [PlaylistInput, PlaylistCard, Loading],
+  imports: [PlaylistInput, PlaylistCard, Loading, ValidateButton],
   templateUrl: './playlist-choice.html',
   styleUrl: './playlist-choice.css',
 })
@@ -28,7 +29,7 @@ export class PlaylistChoice {
       const playlist = await this.playlistService.getPlaylistById(id);
       this.playlist.set(playlist);
     } catch {
-      this.error.set('Impossible de récupérer la playlist.');
+      this.error.set('Impossible to get the playlist');
     } finally {
       this.isLoading.set(false);
     }

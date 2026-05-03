@@ -4,11 +4,12 @@
     @case (1) {
       <p>https://open.spotify.com/playlist/0ZXDeg1JKWm2oqB857oz0V?si=b2c10d97244e4611</p>
       <h2 class="mb-5 mt-5">Step 1: Enter the link of the playlist.</h2>
-      <app-playlist-choice (next)="confirm($event)" />
+      <app-playlist-choice (next)="confirmStep1($event)" />
     }
     @case (2) {
-      <h2>Step 2: Selected the desired genres.</h2>
-      step 2
+      <h2 class="mb-5 mt-5">Step 2: Select your favorite genres !</h2>
+      {{ this.playlistId() }}
+      <app-playlist-genres [playlistId]="playlistId() ?? ''" (next)="confirmStep2($event)" />
     }
     @case (3) {
       <h2>Step 3: Customize your new playlist</h2>

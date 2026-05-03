@@ -1,8 +1,9 @@
 import { Component, output, signal } from '@angular/core';
+import { ValidateButton } from '../../buttons/validate-button/validate-button';
 
 @Component({
   selector: 'app-playlist-input',
-  imports: [],
+  imports: [ValidateButton],
   templateUrl: './playlist-input.html',
   styleUrl: './playlist-input.css',
 })
