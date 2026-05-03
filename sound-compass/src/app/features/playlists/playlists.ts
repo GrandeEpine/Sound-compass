@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { PlaylistList } from '../../shared/components/playlist-list/playlist-list';
-import {QueryParametersService} from "../../core/services/queryParametersService/query-parameters-service";
+import {QueryParametersService} from "../../core/services/query-parameters-service/query-parameters-service";
 
 @Component({
   selector: 'app-playlists',

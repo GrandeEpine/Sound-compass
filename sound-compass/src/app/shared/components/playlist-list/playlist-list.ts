@@ -3,7 +3,7 @@ import { PlaylistCard } from '../cards/playlist-card/playlist-card';
 import { Loading } from '../loading/loading';
 import { PlaylistServices } from '../../../core/services/playlist-services/playlistServices';
 import { SimplifiedPlaylist } from '@spotify/web-api-ts-sdk';
-import {QueryParametersService} from '../../../core/services/queryParametersService/query-parameters-service';
+import {QueryParametersService} from '../../../core/services/query-parameters-service/query-parameters-service';
 
 
 @Component({

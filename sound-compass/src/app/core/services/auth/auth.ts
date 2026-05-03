@@ -13,6 +13,7 @@ export class Auth {
    */
   private static readonly REDIRECT_URI: string = 'http://127.0.0.1:4200/callback';
 
+
   /**
    * @private Scopes used for the authorization process.
    */

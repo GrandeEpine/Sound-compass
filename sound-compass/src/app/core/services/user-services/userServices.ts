@@ -20,20 +20,26 @@ export class UserServices {
    */
   public async loadProfile(): Promise<User | null> {
     this.isLoading.set(true);
-    const profile: UserProfile = await this.auth.SDK.currentUser.profile();
-    this.userProfile.set({
-      id: profile.id,
-      country: profile.country,
-      name: profile.display_name,
-      email: profile.email ?? '',
-      followersCount: profile.followers.total,
-      product: profile.product as 'free' | 'premium' | 'open',
-      images: profile.images ?? [],
-      uri: profile.uri,
-      userRole: UserRole.USER,
-    });
-    this.auth.setUserRole(UserRole.USER);
-    this.isLoading.set(false);
-    return this.userProfile();
+    try {
+      const profile: UserProfile = await this.auth.SDK.currentUser.profile();
+      this.userProfile.set({
+        id: profile.id,
+        country: profile.country,
+        name: profile.display_name,
+        email: profile.email ?? '',
+        followersCount: profile.followers.total,
+        product: profile.product as 'free' | 'premium' | 'open',
+        images: profile.images ?? [],
+        uri: profile.uri,
+        userRole: UserRole.USER,
+      });
+      this.auth.setUserRole(UserRole.USER);
+      this.isLoading.set(false);
+      return this.userProfile();
+    } catch (error) {
+      console.error('Error loading profile:', error);
+      this.isLoading.set(false);
+      throw error;
+    }
   }
 }

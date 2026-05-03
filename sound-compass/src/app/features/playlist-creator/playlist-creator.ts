@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { QueryParametersService } from '../../core/services/queryParametersService/query-parameters-service';
+import { QueryParametersService } from '../../core/services/query-parameters-service/query-parameters-service';
 import { PlaylistChoice } from './playlist-choice/playlist-choice';
 
 @Component({
