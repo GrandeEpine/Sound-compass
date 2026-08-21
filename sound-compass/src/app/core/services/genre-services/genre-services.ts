@@ -41,7 +41,7 @@ export class GenreServices {
       const genresOfTrack: Genre[] = await this.genresOfArtistById(track.artists[0].id);
 
       if (
-        genresOfTrack.some((genre: Genre): boolean => selectedGenreNames.includes(genre.getName()))
+        genresOfTrack.some((genre: Genre): boolean => selectedGenreNames.includes(genre.getName().toLowerCase()))
       ) {
         filteredTracks.push(track);
       }
@@ -51,11 +51,11 @@ export class GenreServices {
 
   public async getGenresFromPlaylist(playlistId: string){
     const tracks = await this.trackService.getTracksFromPlaylist(playlistId);
-    const genres: Set<Genre> = new Set<Genre>();
+    const genres = new Map<string, Genre>();
 
     for (const track of tracks) {
       const genresOfTrack: Genre[] = await this.genresOfArtistById(track.artists[0].id);
-      genresOfTrack.forEach((genre: Genre) => genres.add(genre));
+      genresOfTrack.forEach((genre: Genre) => genres.set(genre.getName().toLowerCase(), genre));
     }
     return genres;
   }

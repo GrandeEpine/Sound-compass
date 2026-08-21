@@ -8,7 +8,6 @@
     }
     @case (2) {
       <h2 class="mb-5 mt-5">Step 2: Select your favorite genres !</h2>
-      {{ this.playlistId() }}
       <app-playlist-genres [playlistId]="playlistId() ?? ''" (next)="confirmStep2($event)" />
     }
     @case (3) {
