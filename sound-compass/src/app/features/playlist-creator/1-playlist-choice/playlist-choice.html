@@ -1,0 +1,23 @@
+<div class="flex flex-col items-center w-full">
+  <div class="w-full px-4">
+    <app-playlist-input (next)="onPlaylistIdReceived($event)"></app-playlist-input>
+  </div>
+  @if (isLoading()) {
+    <app-loading />
+  } @else if (playlist()) {
+    <div class="w-1/4 flex items-center justify-center">
+      <app-playlist-card [playlist]="playlist()!" />
+    </div>
+    <div class="mt-4 w-full">
+      <app-validate-button
+        (action)="confirm()"
+        [disabled]="!playlist()"
+        class=" flex justify-end "
+      />
+    </div>
+
+  } @else {
+    <p class="text-gray-500">No playlist found.</p>
+  }
+</div>
+

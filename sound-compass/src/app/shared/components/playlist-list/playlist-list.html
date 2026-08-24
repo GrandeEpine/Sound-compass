@@ -1,0 +1,27 @@
+<div class="w-full h-2/3 flex items-center justify-center m-2">
+  @if (this.isLoading()) {
+    <app-loading />
+  } @else if (playlists().length !== 0) {
+    <div class="m-2">
+      <div class="w-full flex justify-center">
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          @for (playlist of playlists(); track playlist.id) {
+            <app-playlist-card [playlist]="playlist" />
+          }
+        </div>
+      </div>
+    </div>
+  } @else {
+      <div class="flex flex-col items-center gap-6">
+        <h2 class="text-3xl font-semibold text-blue-600 text-center">
+          No playlists found.
+        </h2>
+        <p class="text-lg text-gray-600 text-center">
+          It seems you don't have any playlists yet. Start creating your own playlists to see them here!
+        </p>
+      </div>
+  }
+</div>
+
+
+

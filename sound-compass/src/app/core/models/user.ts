@@ -1,3 +1,5 @@
+import { UserRole } from './enums/user-role';
+
 export interface User {
   id: string;
   country: string;
@@ -7,6 +9,7 @@ export interface User {
   product: 'free' | 'premium' | 'open';
   images: SpotifyImage[];
   uri: string;
+  userRole: UserRole;
 }
 
 export interface SpotifyImage {

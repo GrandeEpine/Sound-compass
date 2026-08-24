@@ -1,0 +1,25 @@
+@if (isLoading()) {
+  <app-loading class="mb-10 mt-10"/>
+} @else {
+  <app-playlist-genres-search
+    [genreList]="calculatedGenres()"
+    (foundGenres)="onGenresFiltered($event)"
+  />
+  <ul class="flex flex-wrap justify-around gap-y-4 w-full mb-4 mt-4">
+    @for (genre of displayedGenres(); track genre.getName()) {
+      <app-genre-card
+        [genre]="genre"
+        [isSelected]="isGenreSelected(genre)"
+        (toggled)="toggleGenre($event)"
+      />
+    }
+  </ul>
+  <div class="w-full mt-8 " >
+    <app-validate-button
+      (action)="confirm()"
+      [disabled]="selectedGenreNames().size === 0"
+      class="flex justify-end"
+    />
+  </div>
+
+}

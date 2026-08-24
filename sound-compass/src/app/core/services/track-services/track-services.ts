@@ -50,11 +50,11 @@ export class TrackServices {
   /**
    * Get the tracks from a playlist by its id.
    * @param playlistId {string} the id of the playlist.
-   * @return {Promise<Track[]>} a promise that resolves to the tracks of the playlist.
+   * @return {Promise<Set<Track>>} a promise that resolves to the tracks of the playlist.
    */
-  public async getTracksFromPlaylist(playlistId: string): Promise<Track[]> {
+  public async getTracksFromPlaylist(playlistId: string): Promise<Set<Track>> {
     const result: Page<PlaylistedTrack<Track>> =
       await this.auth.SDK.playlists.getPlaylistItems(playlistId);
-    return result.items.map((item) => item.track as Track);
+    return new Set(result.items.map((item) => item.track as Track));
   }
 }

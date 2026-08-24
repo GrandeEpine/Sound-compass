@@ -1,0 +1,45 @@
+<section class="w-full bg-gradient-to-b from-blue-50 to-white py-16 md:py-24">
+  <div class="max-w-6xl mx-auto px-4 md:px-8">
+    <div class="text-center mb-16">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-3">
+        Welcome back, <span class="text-blue-600">{{ userServices.userProfile()?.name }}</span> !
+      </h1>
+      <p class="text-xl text-gray-600">Let's cook some new playlists together !</p>
+    </div>
+    <div>
+      <a [routerLink]="['/my-playlists']" [queryParams]="{ n: 4 }" class="m-1">
+        <h3 class="underline hover:text-blue-500">See more ...</h3>
+      </a>
+      <app-playlist-list [n]="4"></app-playlist-list>
+    </div>
+    <!-- Create Playlist Card -->
+    <div class="max-w-2xl mx-auto mb-12">
+      <div class="bg-white border border-gray-200 rounded-lg p-8 hover:shadow-lg transition-shadow cursor-pointer">
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Create Playlist</h2>
+        <p class="text-gray-600 mb-6">Generate a new playlist from your favorite genres</p>
+        <button [routerLink]="['/create-playlist']" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
+          Start Creating
+        </button>
+      </div>
+    </div>
+
+    <!-- User Stats -->
+    <div class="bg-white border border-gray-200 rounded-lg p-8">
+      <h3 class="text-xl font-bold text-gray-900 mb-6">Your Profile</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Username</p>
+          <p class="text-lg text-gray-900">{{ this.userServices.userProfile()?.name }}</p>
+        </div>
+        <div>
+          <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Country</p>
+          <p class="text-lg text-gray-900">{{ this.userServices.userProfile()?.country }}</p>
+        </div>
+        <div>
+          <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Followers</p>
+          <p class="text-lg text-gray-900">{{ this.userServices.userProfile()?.followersCount }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

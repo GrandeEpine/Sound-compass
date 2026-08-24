@@ -1,0 +1,27 @@
+<div class="w-full max-w-6xl mx-auto px-4 md:px-8 py-12 text-center">
+  <div class="mb-10">
+    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-12">Create a new playlist -
+      <span class="text-blue-600"> Step {{ this.currentStep() }} / 4 </span>
+    </h1>
+  </div>
+  <div class="mb-10 mt-10 text-base">
+    @switch (currentStep()) {
+      @case (1) {
+        <p>https://open.spotify.com/playlist/2el7LXCYhuxRq5fGUoJNdv?si=504b6623606f4c9b</p>
+        <app-playlist-choice (next)="confirmStep1($event)" />
+      }
+      @case (2) {
+        <app-playlist-genres [playlistId]="playlistId() ?? ''" (next)="confirmStep2($event)" />
+      }
+      @case (3) {
+        <app-playlist-customize (next)="confirmStep3($event)"/>
+      }
+      @case (4) {
+        <app-playlist-done [playlistInfo]="this.playlistInfos() ?? {name: '', description: '', isPublic: false}"
+                           [playlistGenres]="this.selectedGenres()"
+        />
+      }
+    }
+  </div>
+
+</div>

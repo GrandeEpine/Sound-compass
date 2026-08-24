@@ -31,8 +31,18 @@ export class PlaylistServices {
    * Get playlists of the current connected user.
    * @return : Promise<Page<SimplifiedPlaylist>> a promise that resolves to a page of playlists of the current user.
    */
-  public getConnectedUserPlaylist(): Promise<Page<SimplifiedPlaylist>> {
+  public getConnectedUserPlaylists(): Promise<Page<SimplifiedPlaylist>> {
     return this.auth.SDK.currentUser.playlists.playlists();
+  }
+
+  /**
+   * Get the n first playlist of the current connected user.
+   * @param n {number} the number of playlist desired.
+   * @return Promise<SimplifiedPlaylist[]> of the n first playlists.
+   */
+  public async getNFirstPlaylists(n: number): Promise<SimplifiedPlaylist[]> {
+    const playlists: Page<SimplifiedPlaylist> = await this.getConnectedUserPlaylists();
+    return playlists.items.slice(0, n);
   }
 
   /**
@@ -54,8 +64,11 @@ export class PlaylistServices {
     name: string,
     description: string,
     isPublic: boolean,
-  ): Promise<Playlist<TrackItem>> {
-    const user: User = await this.userService.getProfile();
+  ): Promise<Playlist> {
+    const user: User | null = await this.userService.loadProfile();
+    if (!user) {
+      return Promise.reject(new Error('User not found'));
+    }
     return this.auth.SDK.playlists.createPlaylist(user.id, {
       name: name,
       description: description,

@@ -1,0 +1,71 @@
+<div class="m-4 text-left" >
+  <div class="mb-4">
+    <h3 class="mb-4">Playlist name:</h3>
+    <input
+      #inputElement
+      type="text"
+      [value]="playlistName()"
+      (input)="playlistName.set($any($event.target).value)"
+      placeholder=""
+      class="flex-1 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none
+           focus:ring-2 focus:ring-blue-500 text-sm w-full"
+    />
+  </div>
+
+  <div class="mb-4">
+    <h3 class="mb-4">Playlist description:</h3>
+    <input
+      #inputElement
+      type="text"
+      [value]="playlistDescription()"
+      (input)="playlistDescription.set($any($event.target).value)"
+      placeholder=""
+      class="flex-1 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none
+           focus:ring-2 focus:ring-blue-500 text-sm w-full"
+    />
+  </div>
+  <div class="mb-4">
+    <h3 class="mb-4">Privacy:</h3>
+    <label class="inline-flex items-center mr-4 rounded-2xl p-3"
+           [class.bg-blue-100]="isPublic()"
+           [class.bg-gray-100]="!isPublic()"
+    >
+      <input
+        type="radio"
+        name="privacy"
+        [checked]="!isPublic()"
+        (change)="isPublic.set(true)"
+        class="mr-2 "
+      />
+      Public
+    </label>
+
+    <label class="inline-flex items-center rounded-2xl p-3"
+           [class.bg-blue-100]="!isPublic()"
+           [class.bg-gray-100]="isPublic()"
+    >
+      <input
+        type="radio"
+        name="privacy"
+        [checked]="isPublic()"
+        (change)="isPublic.set(false)"
+        class="mr-2"
+      />
+      Private
+    </label>
+  </div>
+  <div>
+
+  </div >
+  <div class="w-full">
+    <app-validate-button
+      (action)="confirm()"
+      [disabled]="playlistName() === ''"
+      class="flex justify-end"
+    />
+  </div>
+
+</div>
+
+
+

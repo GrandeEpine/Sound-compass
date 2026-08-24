@@ -1,1 +1,31 @@
-<p>header works!</p>
+<header class="w-full bg-blue-500 text-white">
+  <nav class="flex items-center w-full px-6 py-3">
+    <a href="" class="mr-12">
+      <img src="logo.png" alt="Sound compass logo" class="h-20 w-auto">
+    </a>
+    <ul class="flex gap-6">
+      <li><a href="/" class="nav-link">Home</a></li>
+      <li><a [routerLink]="['/my-playlists']" [queryParams]="{ n: 4 }" class="nav-link">My playlists</a></li>
+      <li><a [routerLink]="['/create-playlist']" class="nav-link">Create</a></li>
+    </ul>
+    <div class="ml-auto flex items-center gap-4 justify-end">
+      @if (!this.userServices.userProfile()) {
+        <app-login-button></app-login-button>
+      } @else {
+          <span class="text-2xl">
+            {{ this.userServices.userProfile()?.name }}
+          </span>
+          <a href="{{ this.userServices.userProfile()?.uri }}"
+             class="h-1/6 w-1/6">
+            <img
+              [src]="this.userServices.userProfile()?.images?.[0]?.url || 'default-avatar.png'"
+              alt="User Avatar"
+              class="rounded-full object-cover"
+            />
+          </a>
+          <app-logout-button></app-logout-button>
+      }
+    </div>
+
+  </nav>
+</header>
