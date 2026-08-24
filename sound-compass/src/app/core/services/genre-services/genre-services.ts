@@ -52,10 +52,31 @@ export class GenreServices {
   public async getGenresFromPlaylist(playlistId: string){
     const tracks = await this.trackService.getTracksFromPlaylist(playlistId);
     const genres = new Map<string, Genre>();
+    const artistCache = new Map<string, Artist>();
 
     for (const track of tracks) {
-      const genresOfTrack: Genre[] = await this.genresOfArtistById(track.artists[0].id);
-      genresOfTrack.forEach((genre: Genre) => genres.set(genre.getName().toLowerCase(), genre));
+      for (const simplifiedArtist of track.artists) {
+        const artistId = simplifiedArtist.id;
+        let artist = artistCache.get(artistId);
+        if (!artist) {
+          artist = await this.artistServices.getArtistById(artistId);
+          artistCache.set(artistId, artist);
+        }
+        const genreNames = this.genresOfArtist(artist);
+        for (const genreName of genreNames) {
+          const key = genreName.toLowerCase();
+
+          let genre = genres.get(key);
+          if (!genre) {
+            genre = new Genre(genreName, new Set<Track>(), new Set<Artist>());
+            genres.set(key, genre);
+          }
+
+          genre.addArtist(artist);
+          genre.addTrack(track);
+        }
+      }
+
     }
     return genres;
   }

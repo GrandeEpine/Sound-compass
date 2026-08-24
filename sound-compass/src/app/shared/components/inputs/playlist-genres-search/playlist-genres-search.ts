@@ -19,20 +19,20 @@ export class PlaylistGenresSearch {
 
   constructor() {
     effect(() => {
-      const recherche = this.genre().toLowerCase().trim();
+      const research = this.genre().toLowerCase().trim();
 
-      if (recherche === '') {
+      if (research === '') {
         this.error.set(null);
         this.foundGenres.emit(this.genreList());
         return;
       }
 
       const results = this.genreList().filter((genre: Genre) =>
-        genre.getName().toLowerCase().includes(recherche)
+        genre.getName().toLowerCase().includes(research)
       );
 
       if (results.length === 0) {
-        this.error.set('Aucun genre trouvé.');
+        this.error.set('No genre found.');
       } else {
         this.error.set(null);
       }

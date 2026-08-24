@@ -42,7 +42,6 @@ export class PlaylistGenres implements OnInit {
     }
   }
 
-
   protected onGenresFiltered(genresFound: Genre[]): void {
     this.filteredGenres.set(genresFound);
   }
