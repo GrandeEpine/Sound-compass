@@ -14,6 +14,7 @@ export class PlaylistCustomize {
   private APP_DESCRIPTION = "Made with Sound Compass";
   protected playlistName = signal<string | null>("");
   protected playlistDescription = signal<string | null>("");
+  protected isPrivate = signal<boolean>(true);
   protected next = output<PlaylistCustomization>();
 
   confirm() {
@@ -24,6 +25,6 @@ export class PlaylistCustomize {
     const description: string = this.APP_DESCRIPTION + this.playlistDescription();
     console.log(description);
     console.log(this.playlistName())
-    this.next.emit({name: this.playlistName() ?? "", description: description});
+    this.next.emit({name: this.playlistName() ?? "", description: description, isPrivate: this.isPrivate()});
   }
 }

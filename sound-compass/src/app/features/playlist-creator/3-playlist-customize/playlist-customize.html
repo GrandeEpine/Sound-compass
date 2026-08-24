@@ -24,6 +24,31 @@
            focus:ring-2 focus:ring-blue-500 text-sm w-full"
     />
   </div>
+  <div class="mb-4">
+    <h3>Privacy:</h3>
+
+    <label class="inline-flex items-center mr-4">
+      <input
+        type="radio"
+        name="privacy"
+        [checked]="!isPrivate()"
+        (change)="isPrivate.set(false)"
+        class="mr-2"
+      />
+      Public
+    </label>
+
+    <label class="inline-flex items-center">
+      <input
+        type="radio"
+        name="privacy"
+        [checked]="isPrivate()"
+        (change)="isPrivate.set(true)"
+        class="mr-2"
+      />
+      Private
+    </label>
+  </div>
 
   <app-validate-button
     (action)="confirm()"
