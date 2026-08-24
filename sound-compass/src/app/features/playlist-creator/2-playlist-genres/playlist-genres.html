@@ -1,5 +1,5 @@
 @if (isLoading()) {
-  <app-loading />
+  <app-loading class="mb-10 mt-10"/>
 } @else {
   <app-playlist-genres-search
     [genreList]="calculatedGenres()"
@@ -14,9 +14,12 @@
       />
     }
   </ul>
+  <div class="w-full mt-8 " >
+    <app-validate-button
+      (action)="confirm()"
+      [disabled]="selectedGenreNames().size === 0"
+      class="flex justify-end"
+    />
+  </div>
 
-  <app-validate-button
-    (action)="confirm()"
-    [disabled]="selectedGenreNames().size === 0"
-  />
 }

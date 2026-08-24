@@ -1,6 +1,6 @@
-<div class="m-4" >
+<div class="m-4 text-left" >
   <div class="mb-4">
-    <h3>Playlist name:</h3>
+    <h3 class="mb-4">Playlist name:</h3>
     <input
       #inputElement
       type="text"
@@ -13,7 +13,7 @@
   </div>
 
   <div class="mb-4">
-    <h3>Playlist description:</h3>
+    <h3 class="mb-4">Playlist description:</h3>
     <input
       #inputElement
       type="text"
@@ -25,35 +25,46 @@
     />
   </div>
   <div class="mb-4">
-    <h3>Privacy:</h3>
-
-    <label class="inline-flex items-center mr-4">
+    <h3 class="mb-4">Privacy:</h3>
+    <label class="inline-flex items-center mr-4 rounded-2xl p-3"
+           [class.bg-blue-100]="isPublic()"
+           [class.bg-gray-100]="!isPublic()"
+    >
       <input
         type="radio"
         name="privacy"
-        [checked]="!isPrivate()"
-        (change)="isPrivate.set(false)"
-        class="mr-2"
+        [checked]="!isPublic()"
+        (change)="isPublic.set(true)"
+        class="mr-2 "
       />
       Public
     </label>
 
-    <label class="inline-flex items-center">
+    <label class="inline-flex items-center rounded-2xl p-3"
+           [class.bg-blue-100]="!isPublic()"
+           [class.bg-gray-100]="isPublic()"
+    >
       <input
         type="radio"
         name="privacy"
-        [checked]="isPrivate()"
-        (change)="isPrivate.set(true)"
+        [checked]="isPublic()"
+        (change)="isPublic.set(false)"
         class="mr-2"
       />
       Private
     </label>
   </div>
+  <div>
 
-  <app-validate-button
-    (action)="confirm()"
-    [disabled]="playlistName() === ''"
-  />
+  </div >
+  <div class="w-full">
+    <app-validate-button
+      (action)="confirm()"
+      [disabled]="playlistName() === ''"
+      class="flex justify-end"
+    />
+  </div>
+
 </div>
 
 

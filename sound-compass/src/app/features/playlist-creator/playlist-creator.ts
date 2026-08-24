@@ -4,10 +4,11 @@ import { PlaylistGenres } from './2-playlist-genres/playlist-genres';
 import { Genre } from '../../core/models/genre';
 import {PlaylistCustomize} from './3-playlist-customize/playlist-customize';
 import {PlaylistCustomization} from '../../core/models/playlist-customization';
+import {PlaylistDone} from './4-playlist-done/playlist-done';
 
 @Component({
   selector: 'app-playlist-creator',
-  imports: [PlaylistChoice, PlaylistGenres, PlaylistCustomize],
+  imports: [PlaylistChoice, PlaylistGenres, PlaylistCustomize, PlaylistDone],
   templateUrl: './playlist-creator.html',
   styleUrl: './playlist-creator.css',
 })
@@ -33,6 +34,5 @@ export class PlaylistCreator {
     this.playlistInfos.set(playlistInfo);
     console.log(playlistInfo);
     this.currentStep.set(4);
-
   }
 }

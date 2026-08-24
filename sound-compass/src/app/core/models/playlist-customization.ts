@@ -1,5 +1,5 @@
 export interface PlaylistCustomization {
   name: string;
   description: string;
-  isPrivate: boolean;
+  isPublic: boolean;
 }

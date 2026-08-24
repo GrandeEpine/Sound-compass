@@ -8,11 +8,14 @@
     <div class="w-1/4 flex items-center justify-center">
       <app-playlist-card [playlist]="playlist()!" />
     </div>
+    <div class="mt-4 w-full">
+      <app-validate-button
+        (action)="confirm()"
+        [disabled]="!playlist()"
+        class=" flex justify-end "
+      />
+    </div>
 
-    <app-validate-button
-      (action)="confirm()"
-      [disabled]="!playlist()"
-    />
   } @else {
     <p class="text-gray-500">No playlist found.</p>
   }

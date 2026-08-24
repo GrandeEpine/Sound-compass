@@ -16,7 +16,7 @@ export class PlaylistInput {
   validate() {
     const match = this.url().match(this.SPOTIFY_PLAYLIST_REGEX);
     if (!match) {
-      this.error.set('Lien Spotify invalide. Ex: https://open.spotify.com/playlist/...');
+      this.error.set('No valid spotify link. Ex: https://open.spotify.com/playlist/...');
       return;
     }
     this.error.set(null);
