@@ -1,7 +1,5 @@
-import {Component, effect, inject, input, output, signal} from '@angular/core';
-import {ValidateButton} from "../../buttons/validate-button/validate-button";
+import {Component, effect, input, output, signal} from '@angular/core';
 import {Genre} from '../../../../core/models/genre';
-import {ThisReceiver} from '@angular/compiler';
 
 @Component({
   selector: 'app-playlist-genres-search',
@@ -14,8 +12,8 @@ export class PlaylistGenresSearch {
   genre = signal('');
   error = signal<string | null>(null);
 
-  genreList =  input.required<Array<Genre>>();
-  foundGenres = output<Array<Genre>>();
+  genreList =  input.required<Genre[]>();
+  foundGenres = output<Genre[]>();
 
   constructor() {
     effect(() => {

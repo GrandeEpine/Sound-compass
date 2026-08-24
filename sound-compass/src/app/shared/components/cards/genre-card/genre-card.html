@@ -6,7 +6,10 @@
   [class.bg-blue-400]="!isSelected()"
   [class.hover:bg-blue-500]="!isSelected()"
   [class.hover:bg-green-500]="isSelected()"
+  role="button"
+  tabindex="0"
   (click)="toggleSelection()"
+  (keydown.enter)="toggleSelection()"
 >
   <h3>{{ genre().getName() }} - {{genre().getTracks().size }}</h3>
 </li>

@@ -3,7 +3,6 @@ import { Auth } from '../auth/auth';
 import { User } from '../../models/user';
 import { UserProfile } from '@spotify/web-api-ts-sdk';
 import {UserRole} from '../../models/enums/user-role';
-import {LocalStorageVariables} from '../../models/enums/local-storage-variables';
 
 @Injectable({
   providedIn: 'root',

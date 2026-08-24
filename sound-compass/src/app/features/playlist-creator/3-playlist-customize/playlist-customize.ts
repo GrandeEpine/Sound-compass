@@ -1,6 +1,4 @@
-import {Component, inject, output, signal} from '@angular/core';
-import {GenreServices} from '../../../core/services/genre-services/genre-services';
-import {Genre} from '../../../core/models/genre';
+import {Component, output, signal} from '@angular/core';
 import { ValidateButton } from '../../../shared/components/buttons/validate-button/validate-button';
 import {PlaylistCustomization} from '../../../core/models/playlist-customization';
 

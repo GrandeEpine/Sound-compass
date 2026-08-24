@@ -24,9 +24,11 @@ export class LoginButton {
         // User cancelled - reset to guest
         this.resetToGuest();
       }
-    } catch (error) {
+    } catch (e) {
       // User cancelled or error occurred
       this.resetToGuest();
+      const error = e as Error;
+      console.error(error);
     }
   }
 
