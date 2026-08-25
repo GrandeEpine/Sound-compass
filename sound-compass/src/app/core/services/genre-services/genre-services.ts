@@ -32,28 +32,6 @@ export class GenreServices {
     );
   }
 
-  /**
-   * Filter the {Track} if the tracks given by given genres.
-   * @param selectedGenres {Genre[]} the genres to filter the tracks by.
-   * @param tracks {Tracks} the tracks to filter.
-   * @return {Tracks} the filtered tracks.
-   */
-  public async filterTracksByGenre(selectedGenres: Genre[], tracks: Tracks): Promise<Tracks> {
-    const selectedGenreNames = selectedGenres.map((g) => g.getName());
-    const filteredTracks: Track[] = [];
-
-    for (const track of tracks.tracks) {
-      const genresOfTrack: Genre[] = await this.genresOfArtistById(track.artists[0].id);
-
-      if (
-        genresOfTrack.some((genre: Genre): boolean => selectedGenreNames.includes(genre.getName().toLowerCase()))
-      ) {
-        filteredTracks.push(track);
-      }
-    }
-    return { tracks: filteredTracks };
-  }
-
   public async getGenresFromPlaylist(playlistId: string){
     const tracks = await this.trackService.getTracksFromPlaylist(playlistId);
     const genres = new Map<string, Genre>();

@@ -25,13 +25,27 @@ export class PlaylistGenres implements OnInit {
   protected selectedGenreNames = signal<Set<string>>(new Set());
   protected filteredGenres = signal<Genre[] | null>(null);
   public isAllSelected = signal<boolean>(false);
+  public isAlphabeticalSelected = signal<boolean>(false);
   protected isLoading = signal<boolean>(true);
 
   protected next = output<Set<Genre>>();
 
   protected displayedGenres = computed<Genre[]>(() => {
     const filtered = this.filteredGenres();
-    return filtered !== null ? filtered : Array.from(this.genresMap().values());
+
+    const genres = filtered !== null
+      ? filtered
+      : Array.from(this.genresMap().values());
+
+    if (this.isAlphabeticalSelected()) {
+      return [...genres].sort((a, b) =>
+        a.getName().localeCompare(b.getName(), 'fr', {
+          sensitivity: 'base',
+        }),
+      );
+    }
+
+    return genres;
   });
   protected calculatedGenres = computed<Genre[]>(() => {
     return Array.from(this.genresMap().values());
@@ -95,6 +109,10 @@ export class PlaylistGenres implements OnInit {
     } else {
       this.selectedGenreNames.set(new Set());
     }
+  }
+
+  protected alphabeticalSort(): void {
+    this.isAlphabeticalSelected.update((value) => !value);
   }
 
   protected confirm(): void {
