@@ -26,13 +26,10 @@ export class PlaylistCreator {
   protected confirmStep2(genres: Set<Genre>): void {
     this.selectedGenres.set(genres);
     this.currentStep.set(3);
-    console.log(genres);
-    console.log(this.currentStep());
   }
 
   protected confirmStep3(playlistInfo: PlaylistCustomization): void {
     this.playlistInfos.set(playlistInfo);
-    console.log(playlistInfo);
     this.currentStep.set(4);
   }
 }

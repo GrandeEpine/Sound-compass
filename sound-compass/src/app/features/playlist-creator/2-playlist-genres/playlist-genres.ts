@@ -5,6 +5,9 @@ import { GenreServices } from '../../../core/services/genre-services/genre-servi
 import { ValidateButton } from '../../../shared/components/buttons/validate-button/validate-button';
 import {PlaylistGenresSearch} from '../../../shared/components/inputs/playlist-genres-search/playlist-genres-search';
 import {Loading} from '../../../shared/components/loading/loading';
+import {TrackServices} from '../../../core/services/track-services/track-services';
+import {Auth} from '../../../core/services/auth/auth';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-playlist-genres',
@@ -14,13 +17,18 @@ import {Loading} from '../../../shared/components/loading/loading';
 })
 export class PlaylistGenres implements OnInit {
   private genreService = inject(GenreServices);
+  public trackService = inject(TrackServices);
 
   public playlistId = input.required<string>();
 
   protected genresMap = signal<Map<string, Genre>>(new Map<string, Genre>());
   protected selectedGenreNames = signal<Set<string>>(new Set());
   protected filteredGenres = signal<Genre[] | null>(null);
+  public isAllSelected = signal<boolean>(false);
+  protected isLoading = signal<boolean>(true);
+
   protected next = output<Set<Genre>>();
+
   protected displayedGenres = computed<Genre[]>(() => {
     const filtered = this.filteredGenres();
     return filtered !== null ? filtered : Array.from(this.genresMap().values());
@@ -28,14 +36,31 @@ export class PlaylistGenres implements OnInit {
   protected calculatedGenres = computed<Genre[]>(() => {
     return Array.from(this.genresMap().values());
   });
-  protected isLoading = signal<boolean>(true);
+  public status = computed(() => {
+    const genreStatus = this.genreService.status();
+    if (genreStatus) {
+      return genreStatus;
+    }
+
+    const trackCount = this.trackService.status();
+    if (trackCount > 0) {
+      return `${trackCount} tracks found`;
+    }
+
+    return 'Finalizing';
+  });
 
   async ngOnInit(): Promise<void> {
     try {
         const genres = await this.genreService.getGenresFromPlaylist(this.playlistId());
         this.genresMap.set(genres);
-     } catch (e) {
-      const error = (e as Error) ?? new Error('Unable to get genres');
+     } catch (err) {
+      const error = (err as Error) ?? new Error('Error');
+      if (error.message.includes('Failed to refresh token')
+        || error.message.includes('invalid_grant')) {
+        const auth = inject(Auth);
+        auth.logout();
+        await inject(Router).navigate(['/home'])}
       console.error(error);
     } finally {
       this.isLoading.set(false);
@@ -60,6 +85,16 @@ export class PlaylistGenres implements OnInit {
     }
 
     this.selectedGenreNames.set(updatedSelection);
+  }
+
+  protected selectAll(){
+    this.isAllSelected.set(!this.isAllSelected());
+    if (this.isAllSelected() && this.displayedGenres().length > 0) {
+      const selected = this.displayedGenres().map((genre) => genre.getName());
+      this.selectedGenreNames.set(new Set(selected));
+    } else {
+      this.selectedGenreNames.set(new Set());
+    }
   }
 
   protected confirm(): void {

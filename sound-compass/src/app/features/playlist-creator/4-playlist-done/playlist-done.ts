@@ -31,7 +31,6 @@ export class PlaylistDone implements OnInit {
   protected playlistEmbedUrl = signal<SafeResourceUrl | null>(null);
 
   async ngOnInit() : Promise<void>  {
-    console.log("ngOnInit");
     this.isLoading.set(true);
     try {
       const newPlaylist = await this.playlistService.postNewPlaylist(

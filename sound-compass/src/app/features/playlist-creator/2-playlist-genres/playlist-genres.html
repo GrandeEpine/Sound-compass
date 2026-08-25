@@ -1,10 +1,32 @@
 @if (isLoading()) {
+  <h3 class="text-3xl font-semibold text-blue-600 text-center">
+    {{ this.status() }}
+  </h3>
+
   <app-loading class="mb-10 mt-10"/>
 } @else {
-  <app-playlist-genres-search
-    [genreList]="calculatedGenres()"
-    (foundGenres)="onGenresFiltered($event)"
-  />
+  <div class="flex w-full items-center gap-2 justify-center">
+    <app-playlist-genres-search
+      class="w-4/5"
+      [genreList]="calculatedGenres()"
+      (foundGenres)="onGenresFiltered($event)"
+    />
+
+    <button
+      class="flex-none flex items-center justify-center w-10 h-10 rounded-2xl border-2 border-b-black m-2"
+      [class.bg-blue-400]="!isAllSelected()"
+      [class.bg-green-400]="isAllSelected()"
+      (click)="selectAll()"
+    >
+      <img
+        src="/selectAllIcon.png"
+        alt="Select All"
+        class="block w-6 h-6 object-contain"
+      />
+    </button>
+  </div>
+
+
   <ul class="flex flex-wrap justify-around gap-y-4 w-full mb-4 mt-4">
     @for (genre of displayedGenres(); track genre.getName()) {
       <app-genre-card

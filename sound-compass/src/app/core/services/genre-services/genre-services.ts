@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import {inject, Injectable, signal} from '@angular/core';
 import { Artist, Track, Tracks } from '@spotify/web-api-ts-sdk';
 import { ArtistServices } from '../artist-services/artist-services';
 import { Genre } from '../../models/genre';
@@ -10,9 +10,14 @@ import { TrackServices } from '../track-services/track-services';
 export class GenreServices {
   private artistServices: ArtistServices = inject(ArtistServices);
   private trackService = inject(TrackServices);
+  public status = signal<string>('')
 
   public genresOfArtist(artist: Artist): string[] {
-    return artist.genres ?? [];
+    const genres = artist.genres ?? [];
+    if (genres.length === 0) {
+      return ['Other'];
+    }
+    return genres;
   }
 
   /**
@@ -53,10 +58,18 @@ export class GenreServices {
     const tracks = await this.trackService.getTracksFromPlaylist(playlistId);
     const genres = new Map<string, Genre>();
     const artistCache = new Map<string, Artist>();
-
+    this.status.set("Collecting genres.");
     for (const track of tracks) {
+      if (!track.artists || track.artists.length === 0) {
+        console.error(`Track ${track.name} has no artists associated with it.`);
+        continue;
+      }
       for (const simplifiedArtist of track.artists) {
         const artistId = simplifiedArtist.id;
+        if (!artistId) {
+          console.error(`Artist ID is undefined for artist ${simplifiedArtist.name} in track ${track.name}`);
+          continue;
+        }
         let artist = artistCache.get(artistId);
         if (!artist) {
           artist = await this.artistServices.getArtistById(artistId);
@@ -76,8 +89,10 @@ export class GenreServices {
           genre.addTrack(track);
         }
       }
+      this.status.set("Collecting genres: " + genres.size);
 
     }
+    this.status.set("")
     return genres;
   }
 }

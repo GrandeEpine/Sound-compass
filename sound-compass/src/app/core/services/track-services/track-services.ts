@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import {inject, Injectable, signal} from '@angular/core';
 import { Auth } from '../auth/auth';
 import { Page, Playlist, PlaylistedTrack, Track, Tracks } from '@spotify/web-api-ts-sdk';
 import { PlaylistServices } from '../playlist-services/playlistServices';
@@ -9,6 +9,7 @@ import { PlaylistServices } from '../playlist-services/playlistServices';
 export class TrackServices {
   private auth: Auth = inject(Auth);
   private playlistServices: PlaylistServices = inject(PlaylistServices);
+  public status = signal(0);
 
   /**
    * Put tracks in a playlist by its id. The tracks will be added to the end of the playlist.
@@ -53,8 +54,26 @@ export class TrackServices {
    * @return {Promise<Set<Track>>} a promise that resolves to the tracks of the playlist.
    */
   public async getTracksFromPlaylist(playlistId: string): Promise<Set<Track>> {
-    const result: Page<PlaylistedTrack<Track>> =
-      await this.auth.SDK.playlists.getPlaylistItems(playlistId);
-    return new Set(result.items.map((item) => item.track as Track));
+    let allTracks: Set<Track> = new Set();
+    const limit = 50 as const;
+    let offset = 0;
+    let page: Page<PlaylistedTrack<Track>>;
+    let invalid = 0
+    do {
+      page = await this.auth.SDK.playlists.getPlaylistItems(playlistId, undefined, undefined, limit, offset);
+      page.items.forEach((item) => {
+        if (!item.track) {
+          console.error("Track not found for playlist", item);
+          invalid++;
+        } else {
+          allTracks.add(item.track)
+        }
+      })
+      offset += page.items.length;
+      this.status.set(offset);
+    } while (page.next);
+    console.error(`Found ${invalid} invalid tracks in playlist ${playlistId}`);
+    this.status.set(0);
+    return allTracks;
   }
 }

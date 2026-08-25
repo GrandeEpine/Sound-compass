@@ -7,7 +7,6 @@
   <div class="mb-10 mt-10 text-base">
     @switch (currentStep()) {
       @case (1) {
-        <p>https://open.spotify.com/playlist/2el7LXCYhuxRq5fGUoJNdv?si=504b6623606f4c9b</p>
         <app-playlist-choice (next)="confirmStep1($event)" />
       }
       @case (2) {

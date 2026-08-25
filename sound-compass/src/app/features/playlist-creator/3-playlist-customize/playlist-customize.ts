@@ -21,8 +21,6 @@ export class PlaylistCustomize {
       return;
     }
     const description: string = this.APP_DESCRIPTION + this.playlistDescription();
-    console.log(description);
-    console.log(this.playlistName())
     this.next.emit({name: this.playlistName() ?? "", description: description, isPublic: this.isPublic()});
   }
 }
